@@ -1,0 +1,209 @@
+# ============================================================================
+# Base config (human run)
+# - Used by: python main.py
+# - Scope: human experiment only (no qa/sim section in this file)
+# ============================================================================
+
+# === Subject Form ===========================================================
+subinfo_fields:
+  - name: subject_id
+    type: int
+    constraints:
+      min: 101
+      max: 999
+      digits: 3
+  - name: subname
+    type: string
+  - name: age
+    type: int
+    constraints:
+      min: 5
+      max: 60
+  - name: gender
+    type: choice
+    choices:
+      - Male
+      - Female
+
+# === Subject Mapping ========================================================
+subinfo_mapping:
+  subject_id: 被试号
+  subname: 被试姓名(拼音)
+  age: 年龄
+  gender: 性别
+  Male: 男
+  Female: 女
+  registration_failed: 注册失败。
+  registration_successful: 注册成功！
+  invalid_input: 字段 {field} 输入无效
+
+# === Display / Window =======================================================
+window:
+  size:
+    - 1920
+    - 1080
+  units: deg
+  screen: 0
+  bg_color: gray
+  fullscreen: true
+  fullscreen_lock_escape: true
+  monitor_width_cm: 60
+  monitor_distance_cm: 72
+
+# === Task ===================================================================
+task:
+  task_name: eeg_rest_preview
+  language: Chinese
+  voice_name: zh-CN-YunyangNeural
+  voice_enabled: true
+  total_blocks: 1
+  total_trials: 2
+  trial_per_block: 2
+  conditions:
+    - EC
+    - EO
+  key_list:
+    - space
+  delta: 0.0
+  seed_mode: same_across_sub
+  overall_seed: 2025
+  input_mode: keyboard
+  hide_cursor: true
+  force_quit_enabled: true
+  force_quit_shortcut: ctrl+q
+
+# === Stimuli ================================================================
+stimuli:
+  EO_stim:
+    type: text
+    text: "+"
+    color: black
+
+  EC_stim:
+    type: text
+    text: 请闭眼
+    color: black
+
+  general_instruction:
+    type: textbox
+    text: |
+      【静息态任务说明】
+
+      本任务不涉及任何按键反应。
+      您只需按照指引保持状态即可。
+
+      如果准备好了，
+      请按【空格键】开始任务。
+    color: white
+    pos:
+      - 0
+      - 0
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+    units: deg
+    size:
+      - 20
+      - 5
+
+  EC_instruction:
+    type: textbox
+    text: |
+      请您闭上眼睛。
+
+      尽量放松身体，
+      保持头部不动，
+      不要睡着。
+
+      直到听到提示为止。
+    color: white
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+    units: deg
+    size:
+      - 20
+      - 5
+
+  EO_instruction:
+    type: textbox
+    text: |
+      请您睁开眼睛。
+
+      注视屏幕中央的注视点，
+      尽量避免眼球和身体移动，
+      不要频繁眨眼。
+
+      直到听到提示为止。
+    color: white
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+    units: deg
+    size:
+      - 20
+      - 5
+
+  good_bye:
+    type: textbox
+    text: |
+      任务结束。
+
+      感谢您的参与。
+      请按【空格键】退出。
+    color: white
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+    units: deg
+    size:
+      - 20
+      - 5
+
+  # Pre-recorded voice prompts.
+  general_instruction_voice:
+    type: sound
+    file: assets/general_instruction_voice.mp3
+  EC_instruction_voice:
+    type: sound
+    file: assets/EC_instruction_voice.mp3
+  EO_instruction_voice:
+    type: sound
+    file: assets/EO_instruction_voice.mp3
+  good_bye_voice:
+    type: sound
+    file: assets/good_bye_voice.mp3
+
+# === Timing =================================================================
+timing:
+  EO_duration: 20
+  EC_duration: 20
+
+# === Triggers ===============================================================
+triggers:
+  map:
+    exp_onset: 98
+    exp_end: 99
+    block_onset: 100
+    block_end: 101
+    EC_onset: 10
+    EC_offset: 11
+    EO_onset: 20
+    EO_offset: 21
+
+  driver:
+    type: serial_url
+    url: loop://
+    baudrate: 115200
+    timeout: 1
+    prefix:
+      - 1
+      - 225
+      - 1
+      - 0
+
+  policy:
+    strict: false
+
+  timing:
+    post_delay_s: 0.001
