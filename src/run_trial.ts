@@ -38,7 +38,7 @@ export function run_trial(
     },
     stim_id: `${condition_id}_instruction`
   });
-  instructionUnit.waitAndContinue({ keys: key_list }).to_dict();
+  instructionUnit.show({ duration: Number(settings.instruction_duration ?? 4) }).to_dict();
 
   const restUnit = trial.unit("rest").addStim(stimBank.get(`${condition_id}_stim`));
   set_trial_context(restUnit, {

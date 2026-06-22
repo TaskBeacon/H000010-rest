@@ -57,8 +57,8 @@ task:
   voice_name: zh-CN-YunyangNeural
   voice_enabled: true
   total_blocks: 1
-  total_trials: 2
-  trial_per_block: 2
+  total_trials: 4
+  trial_per_block: 4
   conditions:
     - EC
     - EO
@@ -176,8 +176,9 @@ stimuli:
 
 # === Timing =================================================================
 timing:
-  EO_duration: 20
-  EC_duration: 20
+  instruction_duration: 4.0
+  EO_duration: 180
+  EC_duration: 180
 
 # === Triggers ===============================================================
 triggers:
