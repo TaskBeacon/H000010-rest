@@ -19,6 +19,7 @@ export function run_trial(
   const condition_id = String(condition);
   const key_list = ((settings.key_list as string[]) ?? ["space"]).map(String);
   const rest_duration = Number(settings[`${condition_id}_duration`] ?? 0);
+  const trigger_map = (settings.triggers ?? {}) as Record<string, unknown>;
 
   const instructionUnit = trial.unit("instruction").addStim(stimBank.get(`${condition_id}_instruction`));
   if (settings.voice_enabled) {
@@ -59,6 +60,7 @@ export function run_trial(
     .captureResponse({
       keys: [],
       duration: rest_duration,
+      timeout_trigger: Number(trigger_map[`${condition_id}_offset`] ?? 0),
       terminate_on_response: false
     })
     .to_dict();
